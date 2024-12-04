@@ -1,3 +1,4 @@
+# Solution without using regex
 
 with open("input3.txt", "r") as file:
     input = file.read()
@@ -40,7 +41,15 @@ while idx < len(input):
 print("The sum is:", total_sum)
 
 
-# Previous outputs
-# 25818381
-# 24703457
-# 170778545
+# Solution using Regex
+import re
+
+total_sum = 0
+pattern = r"mul\((\d+),(\d+)\)"
+
+all_matches = re.finditer(pattern, input)
+
+for match in all_matches:
+    total_sum += int(match.group(1)) * int(match.group(2))
+
+print("The sum of the Regex solution is:", total_sum)

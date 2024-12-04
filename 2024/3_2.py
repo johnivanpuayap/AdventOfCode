@@ -1,3 +1,4 @@
+# Solution without using regex
 
 with open("input3.txt", "r") as file:
     input = file.read()
@@ -51,3 +52,29 @@ while idx < len(input):
     idx += 1
 
 print("The sum is:", total_sum)
+
+
+# Solution using Regex
+
+import re
+
+# Read input from the file
+with open("input3.txt", "r") as file:
+    input = file.read()
+
+
+all_matches = re.finditer(r"mul\((\d+),(\d+)\)|don't\(\)|do\(\)", input)
+
+total_sum = 0
+enabled = True
+
+
+for match in all_matches:
+    if(match.group(0) == "do()"):
+        enabled = True
+    elif(match.group(0) == "don't()"):
+        enabled = False
+    elif (enabled and match.group(1) and match.group(2)): # match.group(1) is the first number, match.group(2) is the second number
+        total_sum += int(match.group(1)) * int(match.group(2))
+
+print("The sum of the Regex solution is:", total_sum)
