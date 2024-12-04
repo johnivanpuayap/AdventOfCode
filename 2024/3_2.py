@@ -1,7 +1,7 @@
-# Solution without using regex
-
 with open("input3.txt", "r") as file:
     input = file.read()
+
+# Solution without no regex
 
 def extract_number(idx, delimiter):
     num = ''
@@ -32,36 +32,29 @@ while idx < len(input):
     
     
     if enabled and input[idx:idx+4] == 'mul(':
-        idx += 4  # Move past 'mul('
+        idx += 4
         
-        # Extract first number
         num1, idx = extract_number(idx, ',')
         
-        if num1 is None:  # Invalid number
+        if num1 is None: 
             continue
 
-        # Extract second number
         num2, idx = extract_number(idx, ')')
         
-        if num2 is None:  # Invalid number
+        if num2 is None:
             continue
         
         total_sum += int(num1) * int(num2)
-        continue # continue so it doesn't move to the next character
+        continue # so it won't increment idx again at the end of the loop
     
     idx += 1
 
 print("The sum is:", total_sum)
 
 
-# Solution using Regex
+# Solution using regex
 
 import re
-
-# Read input from the file
-with open("input3.txt", "r") as file:
-    input = file.read()
-
 
 all_matches = re.finditer(r"mul\((\d+),(\d+)\)|don't\(\)|do\(\)", input)
 
@@ -74,7 +67,7 @@ for match in all_matches:
         enabled = True
     elif(match.group(0) == "don't()"):
         enabled = False
-    elif (enabled and match.group(1) and match.group(2)): # match.group(1) is the first number, match.group(2) is the second number
+    elif (enabled and match.group(1) and match.group(2)):
         total_sum += int(match.group(1)) * int(match.group(2))
 
 print("The sum of the Regex solution is:", total_sum)

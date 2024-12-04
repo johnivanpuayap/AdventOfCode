@@ -1,5 +1,4 @@
 # Solution without using regex
-
 with open("input3.txt", "r") as file:
     input = file.read()
 
@@ -19,18 +18,16 @@ total_sum = 0
 
 while idx < len(input):
     if input[idx:idx+4] == 'mul(':
-        idx += 4  # Move past 'mul('
+        idx += 4
         
-        # Extract first number
         num1, idx = extract_number(idx, ',')
         
-        if num1 is None:  # Invalid number
+        if num1 is None:
             continue
 
-        # Extract second number
         num2, idx = extract_number(idx, ')')
         
-        if num2 is None:  # Invalid number
+        if num2 is None:
             continue
         
         total_sum += int(num1) * int(num2)
